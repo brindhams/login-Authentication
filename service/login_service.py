@@ -3,8 +3,8 @@ from models import User
 
 class Loginservice:
     @classmethod
-    def get_users():
-        users = User.get_user()
+    def get_users(cls):
+        users = User.get_users()
         data= []
         for user in users:
             user_dict = dict(
@@ -17,7 +17,7 @@ class Loginservice:
 
 
     @classmethod
-    def create_user():
+    def create_user(cls):
         data=request.get_json()
         name=data['name']
         mail_id = data['mail_id']
