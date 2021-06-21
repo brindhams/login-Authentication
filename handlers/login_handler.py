@@ -18,6 +18,6 @@ def create_user():
 
 @LOGIN.route('/getuser')
 def get_users():
-    user=Loginservice.get_all_users()
+    user=Loginservice.get_users()
     return json.dumps({"user": user})
 
