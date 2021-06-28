@@ -1,7 +1,5 @@
 from  flask  import request
 from flask import session
-from flask.wrappers import Request
-from werkzeug.wrappers import request
 from models import User, Session
 import uuid
 
