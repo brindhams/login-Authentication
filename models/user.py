@@ -4,7 +4,7 @@ from models import db
 class User(db.Model):
     __tablename__ = 'user'
 
-    id = db.Column(db.Integer(),  primary_key=True, default=lambda: str(uuid.uuid4()))
+    id = db.Column(db.String(128),  primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(128))
     mail_id = db.Column(db.String(128))
     password = db.Column(db.String(128))
@@ -46,7 +46,7 @@ class User(db.Model):
 class Session(db.Model):
     __tablename__='session'
     
-    session_id = db.Column(db.String(),  primary_key=True, default=lambda: str(uuid.uuid4()))
+    session_id = db.Column(db.String(128),  primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(128))
     mail_id = db.Column(db.String(128))
     password = db.Column(db.String(128))
