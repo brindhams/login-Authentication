@@ -28,7 +28,7 @@ class User(db.Model):
             password=password
 
         )
-
+    
         db.session.add(user)
         db.session.commit()
         
@@ -38,10 +38,15 @@ class User(db.Model):
         users = User.query.all()
         return users
 
+    @staticmethod
+    def get_user_by_mail_id(mail_id):
+        user = User.query.filter_by(mail_id=mail_id).first()
+        return user
+
 class Session(db.Model):
-    __tablename__='Session'
+    __tablename__='session'
     
-    Session_id = db.Column(db.String(),  primary_key=True, default=lambda: str(uuid.uuid4()))
+    session_id = db.Column(db.String(),  primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(128))
     mail_id = db.Column(db.String(128))
     password = db.Column(db.String(128))
