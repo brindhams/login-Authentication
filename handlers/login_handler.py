@@ -9,9 +9,9 @@ LOGIN = Blueprint(
     url_prefix='/api/A5'
 )
 
-@LOGIN.route('/user',methods=['POST'])
+@LOGIN.route('/user', methods=['POST'])
 def create_user():
-    data = request.get_json(force=True)
+    data = request.get_json()
     Loginservice.create_user()
     return json.dumps({"Message": "successfully created"})
 
@@ -24,8 +24,8 @@ def get_users():
 
 @LOGIN.route('/login', methods=['POST'])
 def login_user():
-        data = request.get_json(force=True)
-        response = Loginservice.login_user(data=data) 
+        data = request.get_json()
+        response = Loginservice.login_user() 
         return json.dumps(response)
 
         
