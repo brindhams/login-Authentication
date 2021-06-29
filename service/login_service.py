@@ -22,8 +22,8 @@ class Loginservice:
     
     @classmethod
     def login_user(cls):
-        mail_id = request.get('mail_id')
-        password = request.get('password')
+        mail_id = request.json.get('mail_id')
+        password = request.json.get('password')
         user=User.get_user_by_mail_id(mail_id=mail_id)
         
 
@@ -48,12 +48,12 @@ class Loginservice:
         users = User.get_users()
         data= []
         for user in users:
-            user_dict = dict(
-            id=user.id,
-            name=user.name,
-            mail_id=user.mail_id,
-            password=user.password
             
+            user_dict = dict(
+                id=user.id,
+                name=user.name,
+                mail_id=user.mail_id,
+                password=user.password
             )
             data.append(user_dict)
         return data
