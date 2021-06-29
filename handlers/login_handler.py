@@ -12,7 +12,7 @@ LOGIN = Blueprint(
 @LOGIN.route('/user', methods=['POST'])
 def create_user():
     data = request.get_json()
-    Loginservice.create_user()
+    Loginservice.create_user(user=data)
     return json.dumps({"Message": "successfully created"})
 
 
@@ -25,7 +25,7 @@ def get_users():
 @LOGIN.route('/login', methods=['POST'])
 def login_user():
         data = request.get_json()
-        response = Loginservice.login_user() 
+        response = Loginservice.login_user(user=data) 
         return json.dumps(response)
 
         
