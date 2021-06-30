@@ -1,21 +1,11 @@
-from datetime import datetime
-from flask import request,jsonify
+from flask import request
 from flask import session
-from flask import make_response
+import datetime
 from models import User, Session
-from functools import wraps
 import uuid
 import jwt
 
-
-
-
-
-def token_id(*args, **kwargs):
-    pass
-
 class Loginservice:
-
 
     @classmethod
     def create_user(cls, user):
@@ -35,7 +25,7 @@ class Loginservice:
         mail_id = user.get('mail_id')
         password = user.get('password')
         name = user.get('name')
-        _user=User.get_user_by_mail_id(mail_id=mail_id)
+        _user = User.get_user_by_mail_id(mail_id=mail_id)
         
 
         if _user.password == password:
@@ -51,41 +41,48 @@ class Loginservice:
             return response
         else:
             return({"Message":"User Not Found"})
-    
-    def token_id(f):
-        @wraps(f)
-        def decorated(*args, **kwargs):
-            token = request.args.get('token')
 
-            if not token:
-                return jsonify({'message':'Token is missing'}), 403
-
-            try:
-                user = jwt.decode(token, app.config['SECRET_KEY'])
-            except:
-                return jsonify({'message': 'Token is invalid'}), 403
-
-            return f(*args, **kwargs)
-
-        return decorated
              
-    
+   
+
+            
     @staticmethod
     def get_users():
         users = User.get_users()
         data= []
         for user in users:
-            
             user_dict = dict(
-                id=user.id,
                 name=user.name,
                 mail_id=user.mail_id,
                 password=user.password
+
             )
             data.append(user_dict)
         return data
 
+    @staticmethod
+    def verify_user():
+        auth = request.authorization
+        if auth and auth.password == 'password':
+            token = jwt.encode( {'user': auth.username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)})
+            response=({'token': token.encode('UTF-8')})
+            return response
+        else:
+            return({"Message":"User Not Found"})
+
+
+
+
     
+
+       
+
+
+
+
+
+
+
 
 
     
